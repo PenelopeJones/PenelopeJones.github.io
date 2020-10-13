@@ -28,8 +28,7 @@ for making sense of the data. Many of these tools have been branded by the umbre
 At the core of these methodologies is the inference of useful insights from our observations, which can be used
 to make predictions about unobserved variables, to build models of complex systems and to guide decision-making
 processes. In science, machine learning is routinely used in a plethora of applications, from designing novel
-molecules for use as medicinal drugs (&lt;a href=&#34;https://www.nature.com/articles/s41557-020-0496-2&#34;&gt;Chodera et al., 2020&lt;/a&gt;), to aiding conservation of coral reefs (&lt;a href=&#34;https://www.nature.com/articles/s42256-020-0192-3&#34;&gt;Nunes et al., 2020&lt;/a&gt;,
-), and, topically, for
+molecules for use as medicinal drugs (&lt;a href=&#34;https://www.nature.com/articles/s41557-020-0496-2&#34;&gt;Chodera et al., 2020&lt;/a&gt;), to aiding conservation of coral reefs (&lt;a href=&#34;https://www.nature.com/articles/s42256-020-0192-3&#34;&gt;Nunes et al., 2020&lt;/a&gt;), and, topically, for
 forecasting the spread of infectious diseases such as that of the novel coronavirus COVID-19 (&lt;a href=&#34;https://pubmed.ncbi.nlm.nih.gov/30060525/&#34;&gt;Chae et al., 2018&lt;/a&gt;,
 &lt;a href=&#34;https://www.pnas.org/content/117/29/16732&#34;&gt;Bertozzi et al., 2020&lt;/a&gt;).&lt;/p&gt;
 &lt;p&gt;A burgeoning focus of research within machine learning is on the incorporation of probabilistic methodologies
