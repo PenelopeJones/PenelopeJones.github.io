@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academia 4.3.1">
+  <meta name="generator" content="Hugo 0.74.3" />
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Penelope Jones">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Uncertainty is everywhere - Bayesian inference can help us to &#34;know what we do not know&#34;.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://penelopejones.github.io/post/bayesian/">
+
+  
+
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="hsl(0, 90%, 68%)">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light" disabled>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark">
+        
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:400,400italic,700|Roboto+Mono&display=swap">
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/css/academia.min.c62157a95d73ab00a53cb5d816c0c954.css">
+
+  
+
+  
+  
+  
+
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="https://penelopejones.github.io/post/bayesian/">
+
+  
+  
+  
+  
+    
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@penelope_jones1">
+  <meta property="twitter:creator" content="@penelope_jones1">
+  
+  <meta property="og:site_name" content="Penelope Jones">
+  <meta property="og:url" content="https://penelopejones.github.io/post/bayesian/">
+  <meta property="og:title" content="Bayesian Inference | Penelope Jones">
+  <meta property="og:description" content="Uncertainty is everywhere - Bayesian inference can help us to &#34;know what we do not know&#34;."><meta property="og:image" content="https://penelopejones.github.io/post/bayesian/featured.jpg">
+  <meta property="twitter:image" content="https://penelopejones.github.io/post/bayesian/featured.jpg"><meta property="og:locale" content="en-us">
+  
+  <meta property="article:published_time" content="2020-10-12T00:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2020-10-12T00:00:00&#43;00:00">
+  
+
+  
+
+
+  
+
+
+
+
+
+  <title>Bayesian Inference | Penelope Jones</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" class="dark">
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/">Penelope Jones</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"><span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/cv.pdf"><span>CV</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+
+        
+
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+  <article class="article py-5" itemscope itemtype="http://schema.org/Article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container split-header">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+        <img class="img-fluid w-100" src="/post/bayesian/featured_hua374513bc96da9c9c754ab775b6817f2_3030002_680x500_fill_q90_lanczos_smart1.jpg" itemprop="image" alt="">
+        <span
+          class="article-header-caption">Image credit: <a href="https://unsplash.com/photos/KUtKq-4La20"><strong>Michael Dziedzic on Unsplash</strong></a></span>
+    </div>
+    <div class="col-lg-8">
+      <h1 itemprop="name">Bayesian Inference</h1>
+
+      
+      <p class="page-subtitle">Uncertainty is everywhere - Bayesian inference can help us to &ldquo;know what we do not know&rdquo;.</p>
+      
+
+      
+
+
+
+<meta content="2020-10-12 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+<meta content="2020-10-12 00:00:00 &#43;0000 UTC" itemprop="dateModified">
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/admin/">Penelope Jones</a></span>
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    <time>Oct 12, 2020</time>
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    9 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+
+  
+    
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://penelopejones.github.io/post/bayesian/&amp;text=Bayesian%20Inference" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Bayesian%20Inference&amp;body=https://penelopejones.github.io/post/bayesian/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://penelopejones.github.io/post/bayesian/&amp;title=Bayesian%20Inference" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://reddit.com/submit?url=https://penelopejones.github.io/post/bayesian/&amp;title=Bayesian%20Inference" target="_blank" rel="noopener" class="share-btn-reddit">
+          <i class="fab fa-reddit-alien"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    
+    </div>
+  </div>
+</div>
+
+  <div class="article-container">
+
+    <div class="article-style" itemprop="articleBody">
+      <p>The rise of <em>big data</em> has been ubiquitous in almost all scientific fields as well as in broader society;
+the five most valuable companies in the United States are fundamentally data-driven. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> It is hardly surprising then,
+that media outlets and industrial experts alike have proclaimed that ‘data is the new oil’ in reference to
+the mass commoditisation of data globally (<a href="http://ibisworldwide.com/wp-content/uploads/2015/10/Clive-Humby-RS.pdf">Humby, 2015</a>, <a href="https://www.economist.com/leaders/2017/05/06/the-worlds-most-valuable-resource-is-no-longer-oil-but-data">The Economist, 2017</a>, <a href="https://ieeexplore.ieee.org/document/6863125">Yi et al., 2014</a>).</p>
+<p>The real value in big data has arisen not only from the data itself, but from the concinnity of this
+data collection with ever-improving computing power and significant advancements in the tools available
+for making sense of the data. Many of these tools have been branded by the umbrella term machine learning.
+At the core of these methodologies is the inference of useful insights from our observations, which can be used
+to make predictions about unobserved variables, to build models of complex systems and to guide decision-making
+processes. In science, machine learning is routinely used in a plethora of applications, from designing novel
+molecules for use as medicinal drugs (<a href="https://www.nature.com/articles/s41557-020-0496-2">Chodera et al., 2020</a>), to aiding conservation of coral reefs (<a href="https://www.nature.com/articles/s42256-020-0192-3">Nunes et al., 2020</a>,
+), and, topically, for
+forecasting the spread of infectious diseases such as that of the novel coronavirus COVID-19 (<a href="https://pubmed.ncbi.nlm.nih.gov/30060525/">Chae et al., 2018</a>,
+<a href="https://www.pnas.org/content/117/29/16732">Bertozzi et al., 2020</a>).</p>
+<p>A burgeoning focus of research within machine learning is on the incorporation of probabilistic methodologies
+to enable the quantification of uncertainty. This is desirable in many applications of machine learning in science
+where it is vital that we ‘know what we do not know’. At the heart of most probabilistic models is the
+Bayesian framework which, as we shall see, provides a principled mechanism by which one’s
+degree of belief in any event or model can be iteratively updated,
+and which enables the quantification of uncertainty in every prediction that one makes.</p>
+<h2 id="the-omnipresence-of-uncertainty-in-science">The omnipresence of uncertainty in science</h2>
+<p>A scientist recognises and appreciates the success of prevailing theories and models in explaining her observations, but
+is all the while cognisant that no theory should be above scrutiny. The course of history is testament to this world view;
+countless theories once considered indubitable truths have been revealed to be flawed. A corollary of this is that no model should ever be considered certain.
+Instead, one should assess the extent to which they believe that a model is <em>true</em> based on the information available to them.</p>
+<p>It is on this premise that the Bayesian view of probability naturally arises. Here, anything about which one is uncertain
+is assigned a probability between zero and one, which quantifies one&rsquo;s <em>degree of belief</em> that the unobserved quantity
+will take a specific value. A value close to zero implies a belief that it is unlikely an event will occur. Conversely a
+probability close to one implies a belief that an event is likely to occur.</p>
+<p>No aspect of the scientific method is free of uncertainty. When we make a hypothesis using a model, we consciously or
+subconsciously assign a prior belief to that hypothesis based on information acquired from previous observations. When
+this belief is sufficiently great to warrant our time and efforts, we may test the hypothesis by conducting an experiment.
+Inevitably, even our experimental observations are uncertain - our measurements are subject to noise in part due to the
+finite precision of our measuring devices. <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> Finally, we use these observations to update our degree of belief in the
+model, based on its ability to explain the data.</p>
+<h2 id="the-bayesian-approach-to-inference">The Bayesian approach to inference</h2>
+<p>The Bayesian approach to inference provides a principled framework for the quantification of uncertainty at every level.
+Using a Bayesian framework, one can iteratively update their beliefs with every new observation.
+This continual cycle of making observations and then updating our beliefs based on those observations is conceptually
+satisfying, as it is in accordance with our own life experiences.</p>
+<p>The Bayesian paradigm is to update our degree of belief in a model $M$
+in light of new data $X$ using Bayes’ theorem,
+$$p(M|X) = \frac{p(X|M)p(M)}{p(X)}.$$
+Here $p(M)$ is the <em>prior</em>, which quantifies our degree of belief in
+$M$ before observing $X$, and $p(M|X)$ is the <em>posterior</em>, which
+quantifies our degree of belief in $M$ after observing $X$. The
+posterior is related to the prior through the <em>likelihood</em> $p(X|M)$,
+which measures how well $M$ can explain $X$, and the marginal likelihood
+$p(X)$, which here serves as a normalising constant. When new
+observations are made, the previous posterior serves as the new prior,
+embodying the iterative nature of learning.</p>
+<p>There are multiple modelling questions that we may wish to answer, all
+of which involve performing inference at different levels of detail. For
+example, we may want to determine whether data is best explained by a
+polynomial function, or by a neural network. Alternatively, we may be
+happy to assume a polynomial function can explain the data, but seek to
+infer the most probable order of that polynomial function. Finally, at
+the lowest level, we may be happy to fix the order of the polynomial,
+but wish to infer its coefficients. We can answer all of these questions
+using Bayesian inference.</p>
+<p>Let $\mathcal{M}$ denote a family of models. Each member of the family, $M\in\mathcal{M}$, is
+defined by a set of hyperparameters and consists of model parameters
+$θ_M$. Table 1
+provides some common examples of such models and their associated
+hyperparameters and parameters.</p>
+<p>Table 1: <em>Examples of models and their hyperparameters and parameters.</em></p>
+<table>
+<thead>
+<tr>
+<th>Model family $\mathcal{M}$</th>
+<th>Defining hyperparameters of model $M\in \mathcal{M}$</th>
+<th>Model parameters $\theta_M$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Polynomial function</td>
+<td>The order, $n$, of the polynomial</td>
+<td>Coefficients $C_n={c_i}_{i=0}^n$</td>
+</tr>
+<tr>
+<td>Gaussian mixture model</td>
+<td>Number of components</td>
+<td>Means, variances, mixing coefficients</td>
+</tr>
+<tr>
+<td>Neural network</td>
+<td>Number of layers, size of layers, choice of activation function</td>
+<td>Neural network parameters</td>
+</tr>
+</tbody>
+</table>
+<p>The probability of observing a particular dataset is found by
+integrating out all other variables from the joint distribution
+$$\begin{aligned}
+p(X) =&amp; \sum_{\mathcal{M}} \sum_{M} \int p(X, \theta_M, M, \mathcal{M}) d\theta_M \nonumber \\<br>
+=&amp; \sum_{\mathcal{M}} p(\mathcal{M}) \sum_{M}p(M|\mathcal{M})\int  p(\theta_M|M, \mathcal{M}) p(X|\theta_M, M, \mathcal{M}) d\theta_M.\end{aligned}$$</p>
+<p>This equation is rather daunting. It is more intuitive to separate the
+procedure into three levels. The level(s) of inference that shall be
+considered will depend on what the statistician hopes to achieve, and
+the extent to which she is willing to restrict the breadth of models
+considered.</p>
+<p>At the first level of inference, the model is specified and fixed. The
+goal is to determine the posterior $p(\theta_M|X, M, \mathcal{M})$
+over the model’s parameters $\theta_M$, given some observed data
+$X$. We must specify the prior $p(\theta_M|M, \mathcal{M})$ and the
+likelihood $p(X|\theta_M, M, \mathcal{M})$. The posterior is
+$$p(\theta_M|X, M, \mathcal{M}) = \frac{p(X|\theta_M, M, \mathcal{M})p(\theta_M|M, \mathcal{M})}{p(X|M, \mathcal{M})}.$$
+The normalising constant $p(X|M, \mathcal{M})$
+is the <em>marginal likelihood</em> of the model, and is computed by
+integrating over $\theta_M$
+$$p(X|M, \mathcal{M}) = \int p(\theta_M| M, \mathcal{M}) p(X|\theta_M, M, \mathcal{M})  d\theta_M.$$</p>
+<p>This quantity is central to the second level of inference, in which the
+model family remains fixed, but now we seek to compare the relative
+plausibility of two models in the same model family. We can compute the
+posterior probability of model $M$ as
+$$ p(M|X, \mathcal{M}) = \frac{p(X|M, \mathcal{M})p(M| \mathcal{M})}{p(X|\mathcal{M})},$$</p>
+<p>where $p(X|\mathcal{M})$ is the marginal likelihood of the model <em>family</em>:
+$$p(X|\mathcal{M}) = \sum_{M \in \mathcal{M}} P(X|M, \mathcal{M})p(M|\mathcal{M}).$$</p>
+<p>Assuming a uniform prior over models such that $p(M|\mathcal{M}) \propto 1$, the model
+that best explains the data will be that which maximises
+$p(X|M, \mathcal{M})$. The marginal likelihood penalises overly complex models
+and has an implicit Occam’s razor property: the optimal model will be
+the simplest model that can explain the data adequately (<a href="http://www.inference.org.uk/mackay/thesis.pdf">Mackay, 1991</a>).</p>
+<p>At the highest level of inference, we could compare the ability of two
+different model families to explain $X$. This can be achieved by
+computing the posterior distribution of the model family
+$$p(\mathcal{M}|X) = \frac{p(X|\mathcal{M})p(\mathcal{M})}{p(X)}.$$
+The normalising constant $p(X)$ is independent of $\mathcal{M}$, and typically the
+prior over model families $p(\mathcal{M})$ is assumed uniform. <sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></p>
+<h3 id="predicting-the-values-of-missing-data">Predicting the values of missing data</h3>
+<p>Given the observed dataset $X$, we may wish to predict the values of
+some unobserved data, $X^{\star}$. In parametric models,
+$X^{\star}$ is assumed conditionally independent of $X$ given the
+model parameters, such that the distribution
+$p(X^{\star}|X, M)$ is
+$$p(X^{\star}|X, M) = \int p(X^{\star}|\theta_M, M) p(\theta_M|X, M) d\theta_M.$$</p>
+<h2 id="next-time">Next time&hellip;</h2>
+<p>In this post, I outlined the importance of uncertainty quantification in science, and showed how
+Bayesian inference can be used to update our degree of belief in measurements and models in light of new observations.</p>
+<p>Next time, I will be covering the basics of variational inference, an important family of techniques for approximating the intractable integrals
+that are ubiquitous in Bayesian inference.</p>
+<p>Thanks for reading!</p>
+<h2 id="references">References</h2>
+<p>(<a href="https://www.forbes.com/global2000/#6c50c161335d">Forbes, 2020</a>) Global 2000 - The World’s Largest Public Companies 2020, August 2020.</p>
+<p>(<a href="http://ibisworldwide.com/wp-content/uploads/2015/10/Clive-Humby-RS.pdf">Humby, 2015</a>) Clive Humby. Data is the new oil, 2015.</p>
+<p>(<a href="https://www.economist.com/leaders/2017/05/06/the-worlds-most-valuable-resource-is-no-longer-oil-but-data">The Economist, 2017</a>) The world’s most valuable resource is no longer oil, but data. The Economist, May 2017.</p>
+<p>(<a href="https://ieeexplore.ieee.org/document/6863125">Yi et al., 2014</a>) Xiaomeng Yi, Fangming Liu, Jiangchuan Liu, and Hai Jin. Building a network highway for big data: architecture and challenges. IEEE Network, 28(4):5–13, July 2014. Conference Name: IEEE Network.</p>
+<p>(<a href="https://www.nature.com/articles/s41557-020-0496-2">Chodera et al., 2020</a>) John Chodera, Alpha A. Lee, Nir London, and Frank von Delft. Crowdsourcing drug discovery for pandemics. Nature Chemistry, 12(7):581–581, July 2020. Number: 7 Publisher: Nature Publishing Group.</p>
+<p>(<a href="https://www.nature.com/articles/s42256-020-0192-3">Nunes et al., 2020</a>) José Anchieta C. C. Nunes, Igor C. S. Cruz, André Nunes, and Hudson T. Pinheiro. Speeding up coral reef conservation with AI-aided automated image analysis. Nature Machine Intelligence, 2(6):292–292, June 2020. Number: 6 Publisher: Nature Publishing Group.</p>
+<p>(<a href="https://pubmed.ncbi.nlm.nih.gov/30060525/">Chae et al., 2018</a>) Sangwon Chae, Sungjun Kwon, and Donghyun Lee. Predicting Infectious Disease Using Deep Learning and Big Data. International Journal of Environmental Research and Public Health, 15(8), August 2018.</p>
+<p>(<a href="https://www.pnas.org/content/117/29/16732">Bertozzi et al., 2020</a>) Andrea L. Bertozzi, Elisa Franco, George Mohler, Martin B. Short, and Daniel Sledge. The challenges of modeling and forecasting the spread of COVID-19. Proceedings of the National Academy of Sciences, 117(29):16732–16738, July 2020. Publisher: National Academy of Sciences Section: Physical Sciences.</p>
+<p>(<a href="http://www.inference.org.uk/mackay/thesis.pdf">Mackay, 1991</a>) David J.C. MacKay. Bayesian Methods for Adaptive Models. PhD Thesis, December 1991.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>As of August 2020, the five most valuable publicly traded US companies by market capitalisation are Alphabet, Amazon, Apple, Facebook and Microsoft (<a href="https://www.forbes.com/global2000/#6c50c161335d">Forbes, 2020</a>). <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>The uncertainty associated with observation noise is termed <em>aleatoric</em>, as against the <em>epistemic</em> uncertainty that arises due to a lack of observations. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>This is because there is usually no reason for us to assign a prior
+degree of belief to a particular model family. Thus we assume
+<em>p</em>(ℳ) ∝ 1. <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/bayesian-inference/">Bayesian inference</a>
+  
+  <a class="badge badge-light" href="/tags/machine-learning/">Machine learning</a>
+  
+  <a class="badge badge-light" href="/tags/uncertainty-quantification/">Uncertainty quantification</a>
+  
+</div>
+
+
+
+    
+      
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  <div class="media author-card" itemscope itemtype="http://schema.org/Person">
+    
+
+    <div class="media-body">
+      <h5 class="card-title" itemprop="name"><a href="https://penelopejones.github.io/">Penelope Jones</a></h5>
+      <h6 class="card-subtitle">Ph.D. Student</h6>
+      <p class="card-text" itemprop="description">Penelope&rsquo;s research interests span machine learning, Bayesian inference, smart charging and drug discovery.</p>
+      <ul class="network-icon" aria-hidden="true">
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+          <li>
+            <a itemprop="sameAs" href="mailto:pj321@cam.ac.uk" >
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://www.linkedin.com/in/penelope-k-jones-396a94105/" target="_blank" rel="noopener">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://twitter.com/penelope_jones1" target="_blank" rel="noopener">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://scholar.google.com/citations?user=4LQGnC4AAAAJ&amp;hl=en" target="_blank" rel="noopener">
+              <i class="ai ai-google-scholar"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://github.com/PenelopeJones" target="_blank" rel="noopener">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+
+      
+      
+    
+
+    
+
+    
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+    <script src="/js/mathjax-config.js"></script>
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+        
+      
+
+      
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" integrity="sha256-GhM+5JHb6QUzOQPXSJLEWP7R73CbkisjzK5Eyij4U9w=" crossorigin="anonymous" async></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="/js/academia.min.7276a6a3624de715a5c7f54c7c07696d.js"></script>
+
+    
+
+
+
+
+
+
+  
+  <div class="container">
+    <footer class="site-footer">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        
+      </div>
+      <div class="col-md-6">
+        <ul class="list-inline network-icon text-right">
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="mailto:pj321@cam.ac.uk"  title="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+          </li>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/penelope-k-jones-396a94105/" target="_blank" rel="noopener" title="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+          </li>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/penelope_jones1" target="_blank" rel="noopener" title="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+          </li>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://scholar.google.com/citations?user=4LQGnC4AAAAJ&amp;hl=en" target="_blank" rel="noopener" title="Google Scholar"><i class="ai ai-google-scholar" aria-hidden="true"></i></a>
+          </li>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/PenelopeJones" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
