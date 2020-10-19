@@ -7,15 +7,24 @@
     <generator>Source Themes academia (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>Copyright &amp;copy; {year}</copyright>
-    <lastBuildDate>Mon, 12 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 19 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	    <atom:link href="https://penelopejones.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Approximate inference</title>
+      <link>https://penelopejones.github.io/tags/approximate-inference/</link>
+      <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://penelopejones.github.io/tags/approximate-inference/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Bayesian inference</title>
       <link>https://penelopejones.github.io/tags/bayesian-inference/</link>
-      <pubDate>Mon, 12 Oct 2020 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://penelopejones.github.io/tags/bayesian-inference/</guid>
       <description></description>
@@ -24,9 +33,18 @@
     <item>
       <title>Machine learning</title>
       <link>https://penelopejones.github.io/tags/machine-learning/</link>
-      <pubDate>Mon, 12 Oct 2020 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://penelopejones.github.io/tags/machine-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Optimisation</title>
+      <link>https://penelopejones.github.io/tags/optimisation/</link>
+      <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://penelopejones.github.io/tags/optimisation/</guid>
       <description></description>
     </item>
     

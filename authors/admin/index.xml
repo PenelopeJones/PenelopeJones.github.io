@@ -7,10 +7,97 @@
     <generator>Source Themes academia (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>Copyright &amp;copy; {year}</copyright>
-    <lastBuildDate>Mon, 12 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 19 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	    <atom:link href="https://penelopejones.github.io/authors/admin/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>An Introduction to Variational Inference</title>
+      <link>https://penelopejones.github.io/post/variational_inference/</link>
+      <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://penelopejones.github.io/post/variational_inference/</guid>
+      <description>&lt;p&gt;In my &lt;a href=&#34;../bayesian&#34;&gt;last post&lt;/a&gt;, I introduced Bayesian inference as a principled framework for quantifying our level of (un)certainty, in models and predictions. From that post, it can be observed that almost all computations of the quantities of interest
+(such as the marginal likelihood) in Bayesian inference demand the integration of complex functions over all parameters of the model of interest.
+In practice, these integrals are usually intractable.&lt;/p&gt;
+&lt;p&gt;Much work in Bayesian machine learning is focused on developing approximate inference methods
+that circumvent the challenge of computing exact integrals. These techniques are generally demarcated as &lt;em&gt;Markov Chain Monte Carlo&lt;/em&gt; (MCMC) and &lt;em&gt;variational inference&lt;/em&gt; methods.&lt;/p&gt;
+&lt;p&gt;MCMC methods are&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;computationally expensive,&lt;/li&gt;
+&lt;li&gt;scale badly with large amounts of data, and&lt;/li&gt;
+&lt;li&gt;it is difficult to assess their convergence, &lt;em&gt;but&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;they are mathematically guaranteed to converge exactly in the limit of infinite data.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In contrast, variational inference methods are&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;computationally cheaper,&lt;/li&gt;
+&lt;li&gt;scale well with large quantities of data, &lt;em&gt;but&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;typically do not converge to the true distribution in the infinite data limit.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;variational-inference&#34;&gt;Variational inference&lt;/h2&gt;
+&lt;p&gt;Variational inference (&lt;a href=&#34;https://arxiv.org/abs/1601.00670&#34;&gt;Blei et al., 2017&lt;/a&gt;) methods introduce a variational distribution $q_{\phi}(\theta)$ that upon optimisation of
+the variational parameters $\phi$ will be used as an approximation to some true distribution $p(\theta)$.
+The power of this family of techniques lies in their ability to simultaneously approximate the posterior distribution
+over model parameters and also the marginal likelihood of the model.&lt;/p&gt;
+&lt;p&gt;The general approach to VI is as follows.
+Suppose that we seek to determine both the marginal likelihood $p(X|M)$ of some model $M$,
+and also to determine the posterior over model parameters $\theta$ given the observed data,
+$p(\theta|X, M)$.  These two quantities are related by Bayes&amp;rsquo; theorem
+$$p(\theta|X, M) = \frac{p(X, \theta|M)}{p(X|M)}.$$
+We now introduce the variational distribution $q_{\phi}(\theta)$, which will be used as an approximation to $p(\theta|X, M)$.
+Rearranging, and inserting the factor $1 = \frac{q_{\phi}(\theta)}{q_{\phi}(\theta)}$ gives
+$$p(X|M) = \frac{p(X, \theta|M)}{q_{\phi}(\theta)}\frac{q_{\phi}(\theta)}{p(\theta|X, M)}.$$
+Taking the logarithm of both sides, multiplying by $q_{\phi}(\theta)$ and integrating over $\theta$, we obtain the central relation
+$$\log{p(X|M)} = \mathcal{L}_\mathrm{ELBO} + \mathrm{KL}[q_{\phi}(\theta)||p(\theta|X, M)]$$
+where the first term is denoted the evidence lower bound (ELBO)
+$$\begin{aligned}
+\mathcal{L}_\mathrm{ELBO} &amp;amp;= \mathbb{E}_{q_{\phi}(\theta)}\left[\log{\frac{p(X, \theta|M)}{q_{\phi}(\theta)}}\right]  \\&lt;br&gt;
+&amp;amp;= \int q_{\phi}(\theta) \log{\frac{p(X, \theta|M)}{q_{\phi}(\theta)}} d\theta,\end{aligned}$$
+and the second term
+\begin{equation}
+\mathrm{KL}[q_{\phi}(\theta)||p(\theta|X, M)] = \int q_{\phi}(\theta) \log{\frac{q_{\phi}(\theta)}{p(\theta|X, M)}} d\theta
+\end{equation}
+is the Kullback–Leibler (KL) divergence between $q_{\phi}(\theta)$ and $p(\theta|X, M)$
+(&lt;a href=&#34;https://projecteuclid.org/euclid.aoms/1177729694&#34;&gt;Kullback and Leibler, 1951&lt;/a&gt;). Crucially,
+the KL divergence between two distributions is always non-negative, with equality iff $q_{\phi}(\theta) \equiv p(\theta|X, M)$
+(&lt;a href=&#34;https://ieeexplore.ieee.org/document/4218101&#34;&gt;Hershey and Olsen, 2007&lt;/a&gt;).
+By minimising the KL divergence (or equivalently, by maximising $\mathcal{L}_\mathrm{ELBO}$) with respect
+to variational parameters $\phi$,
+we achieve two goals. Firstly, we can use the optimal variational parameters $\phi^*$ to form our approximation to $p(\theta|X, M)$,
+using $q^*(\theta) = q_{\phi^*}(\theta)$. Secondly, we will obtain a lower bound and approximation to the marginal likelihood via the
+maximised $\mathcal{L}_\mathrm{ELBO}$.
+We see that VI turns an intractable integration problem into a tractable optimisation problem which
+can be solved using techniques such as stochastic gradient descent.&lt;/p&gt;
+&lt;h2 id=&#34;amortised-variational-inference&#34;&gt;Amortised variational inference&lt;/h2&gt;
+&lt;p&gt;In contrast to mean field variational inference for which each datapoint has an associated set of variational parameters, in amortised variational inference
+the variational parameters are shared across all data points (&lt;a href=&#34;http://gershmanlab.webfactional.com/pubs/GershmanGoodman14.pdf&#34;&gt;Gershman and Goodman, 2014&lt;/a&gt;). Typically
+this is achieved using a neural network to learn a mapping from observations to latent variables. The neural network
+parameters are the variational parameters to be optimised. The benefit of this is that the number of variational
+parameters remains fixed with respect to the number of data points. Also, inference can be performed on unseen data
+at the cost of a single forward pass through the so-called `inference network&amp;rsquo;.&lt;/p&gt;
+&lt;h2 id=&#34;next-time&#34;&gt;Next time&amp;hellip;&lt;/h2&gt;
+&lt;p&gt;In this post, I have provided an overview of variational inference. &lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; In my next post I will demonstrate how I
+have used variational inference to distil physical insights from soft matter systems.&lt;/p&gt;
+&lt;p&gt;Thanks for reading! Feedback always appreciated.&lt;/p&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;p&gt;(&lt;a href=&#34;https://arxiv.org/abs/1601.00670&#34;&gt;Blei et al., 2017&lt;/a&gt;) David M. Blei, Alp Kucukelbir, and Jon D. McAuliffe. Variational Inference: A Review for Statisticians. Journal of the American Statistical Association, 112(518):859–877, April 2017.&lt;/p&gt;
+&lt;p&gt;(&lt;a href=&#34;https://projecteuclid.org/euclid.aoms/1177729694&#34;&gt;Kullback and Leibler, 1951&lt;/a&gt;) Solomon Kullback and Richard .A. Leibler. On Information and Sufficiency. Annals of Mathematical Statistics, 22(1):79–86, March 1951.&lt;/p&gt;
+&lt;p&gt;(&lt;a href=&#34;https://ieeexplore.ieee.org/document/4218101&#34;&gt;Hershey and Olsen, 2007&lt;/a&gt;) John R. Hershey and Peder A. Olsen. Approximating the Kullback-Leibler Divergence Between Gaussian Mixture Models.
+In 2007 IEEE International Conference on Acoustics, Speech and Signal Processing– 320, April 2007. ISSN: 2379-190X.&lt;/p&gt;
+&lt;p&gt;(&lt;a href=&#34;http://gershmanlab.webfactional.com/pubs/GershmanGoodman14.pdf&#34;&gt;Gershman and Goodman, 2014&lt;/a&gt;) Samuel J. Gershman and Noah D. Goodman.
+Amortized Inference in Probabilistic Reasoning.&lt;/p&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;I plan to cover MCMC methods in a future post! &lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+</description>
+    </item>
     
     <item>
       <title>Bayesian Inference</title>
