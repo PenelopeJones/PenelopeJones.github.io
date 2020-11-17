@@ -473,7 +473,7 @@ a variety of domains.</p>
 <h2 id="gaussian-processes">Gaussian processes</h2>
 <p>A Gaussian process (GP) is a stochastic process for which the joint distribution
 of any finite subset of the set of random variables is Gaussian.
-GPs are used extensively in a range of applications, including in Bayesian
+GPs are now used extensively in a range of applications, including in Bayesian
 optimisation, reinforcement learning and property prediction.</p>
 <p>A GP is wholly specified by a mean function $m(x)$ and covariance
 function $k(x, x&rsquo;)$, where for $\mathit{f} \sim \mathcal{P}$:
@@ -521,8 +521,11 @@ $$
 and
 $$
 \mathrm{cov}\left(\mathbf{f}_{*}\right) =k\left(X_{*}, X_{*}\right)-k\left(X_{*}, X\right)\left[k(X, X)+\sigma^{2} I\right]^{-1} k\left(X, X_{*}\right).
-$$
-Exact inference in the GP model has computational complexity $\mathcal{O}(m^3)$ due to the need
+$$</p>
+<p>Intuitively, the posterior covariance is comprised of the prior covariance $k(X_*, X_*)$
+and a subtracted positive term $k\left(X_{*}, X\right)\left[k(X, X)+\sigma^{2} I\right]^{-1} k\left(X, X_{*}\right)$, which
+corresponds to a reduction in uncertainty due to the additional information that we have gained from our observations.</p>
+<p>Exact inference in the GP model has computational complexity $\mathcal{O}(m^3)$ due to the need
 to invert the $m \times m$ matrix $k\left(X_{*}, X\right)+\sigma^2I$, which restricts the
 application of exact GPs to small datasets. Approximations have been developed that reduce the
 complexity to $\mathcal{O}(mp^2)$, where $p$ is some number of inducing points $p&lt;m$ (<a href="https://www.jmlr.org/papers/volume6/quinonero-candela05a/quinonero-candela05a.pdf">Quiñonero-Candela and Rasmussen, 2005</a>,
@@ -628,25 +631,24 @@ and the Attentive Neural Process (ANP) (<a href="https://arxiv.org/pdf/1807.0161
 <a href="https://arxiv.org/abs/1901.05761">Kim et al., 2019</a>). My Python implementation of these models can be found
 <a href="https://github.com/PenelopeJones/neural_processes">here</a>.</p>
 <p><img src="predictions.png" alt="">
-<em>1D regression task predictions for two different datasets,
+<em>1D regression task predictions for two of the 1000 training datasets,
 the first (a-d) having $n \gg m$ and the second
 (e-h) having $n \ll m$. For both cases,
 from left to right, predictions are made by the GP
 (squared exponential kernel),
 CNP, NP, ANP respectively.</em></p>
 <p>We see that the GP produces a good fit but could be considered overly
-smooth. The NP and CNP both suffer from underfitting which the
-ANP resolves by incorporating attention. Both the NP and the ANP are
+smooth. The NP and CNP both suffer from underfitting which is resolved by the
+ANP through the incorporation of attention. Both the NP and the ANP are
 less smooth than the CNP which could be attributed to the need to take a finite
 number of samples of $z$ and $y$ to calculate the mean and variance
 of the output.</p>
 <h2 id="next-time">Next time&hellip;</h2>
 <hr>
 <p>In this post I gave an overview of how we can learn to model stochastic processes using
-probabilistic machine learning models, and specifically through learning the
-hyperparameters of a Gaussian process (by maximising the marginal likelihood), or through
-optimisation of the parameters of a neural process. This is one of a number of ways that we
-can incorporate uncertainty in a principled manner.</p>
+probabilistic machine learning models. Specifically, I study two such ML models,
+namely Gaussian processes and neural processes. Modelling data as being drawn from a
+stochastic process is one way that we can incorporate uncertainty into our models in a principled manner.</p>
 <p>In my next post I plan to delve into another topic entirely, namely reinforcement learning.</p>
 <p>Thanks for reading! Questions and feedback are always much appreciated -
 please don&rsquo;t hesitate to get in touch.</p>
