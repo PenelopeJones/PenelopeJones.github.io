@@ -22,7 +22,7 @@
 processes. For example, diffusion and heat transfer can be modelled as
 Brownian processes, and the number of decays from a radioactive sample
 can be modelled as a Poisson process. In daily life, social network dynamics, traffic flow
-and stock market prices are routinely modelled using the mathematics of stochastic processes [1].&lt;/p&gt;
+and stock market prices are routinely modelled using the mathematics of stochastic processes.&lt;/p&gt;
 &lt;p&gt;A stochastic process, $\mathcal{P}$, defines a family of random variables,
 which may have a finite or infinite number of components. Each realisation
 of a stochastic process ${y_x, x \in \mathcal{X}}$ is an assignment of a possible
