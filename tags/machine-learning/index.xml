@@ -7,10 +7,233 @@
     <generator>Source Themes academia (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>Copyright &amp;copy; {year}</copyright>
-    <lastBuildDate>Mon, 19 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 16 Nov 2020 00:00:00 +0000</lastBuildDate>
     
 	    <atom:link href="https://penelopejones.github.io/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ML and Stochastic Processes</title>
+      <link>https://penelopejones.github.io/post/neural_processes/</link>
+      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://penelopejones.github.io/post/neural_processes/</guid>
+      <description>&lt;p&gt;An assortment of physical systems exist that can be considered stochastic
+processes. For example, diffusion and heat transfer can be modelled as
+Brownian processes, and the number of decays from a radioactive sample
+can be modelled as a Poisson process. In daily life, social network dynamics, traffic flow
+and stock market prices are routinely modelled using the mathematics of stochastic processes.&lt;/p&gt;
+&lt;p&gt;A stochastic process, $\mathcal{P}$, defines a family of random variables,
+which may have a finite or infinite number of components. Each realisation
+of a stochastic process ${y_x, x \in \mathcal{X}}$ is an assignment of a possible
+value of $y_x$ to each $x \in \mathcal{X}$. When the domain $\mathcal{X}$ is real-valued,
+such a realisation corresponds to a function, $f$, mapping $x$ to a corresponding value
+$y_x$. &lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; Thus we can interpret a stochastic process as defining a distribution over functions,
+with each sample from $\mathcal{P}$ corresponding to a different function.&lt;/p&gt;
+&lt;p&gt;We can completely characterise a stochastic process by specifying the joint distribution of every
+finite family $y_{x_1}, y_{x_2}, &amp;hellip; , y_{x_n}$ of variables. By placing restrictions
+on the form of the joint distribution, inference can be made tractable. One such example of this is
+the Gaussian process, a widely used stochastic process that has found success in
+a variety of domains.&lt;/p&gt;
+&lt;h2 id=&#34;gaussian-processes&#34;&gt;Gaussian processes&lt;/h2&gt;
+&lt;p&gt;A Gaussian process (GP) is a stochastic process for which the joint distribution
+of any finite subset of the set of random variables is Gaussian [66].
+GPs are used extensively in a range of applications, including in Bayesian
+optimisation [67], reinforcement learning [68] and property prediction [69].&lt;/p&gt;
+&lt;p&gt;A GP is wholly specified by a mean function $m(x)$ and covariance
+function $k(x, x&amp;rsquo;)$, where for $\mathit{f} \sim \mathcal{P}$:
+$$\begin{aligned}
+m(x) &amp;amp;= \mathbb{E}[f(x)] \\&lt;br&gt;
+k(x, x&amp;rsquo;) &amp;amp;= \mathbb{E}[(f(x) - m(x))(f(x&amp;rsquo;) - m(x&amp;rsquo;))].\end{aligned}$$
+Often $m(x)$ is set to be 0. The covariance function specifies the
+covariance between the random variables $f(x)$ and $f(x&amp;rsquo;)$. For
+commonly used examples such as the squared exponential and Matérn
+covariance functions, the covariance is close to unity when inputs
+$x$ and $x&#39;$ are in close proximity, but reduces to zero as
+their separation distance increases.&lt;/p&gt;
+&lt;p&gt;The choice of mean and covariance function dictates the properties of
+the sampled functions, such as smoothness, lengthscale and periodicity.
+Through these choices, the inductive biases are specified. For example,
+consider the squared exponential kernel:
+$$k(x, x&amp;rsquo;) = \exp{\left(-\frac{|x - x&#39;|^2}{2l^2} \right)}.$$&lt;/p&gt;
+&lt;p&gt;Here, the hyperparameter $l$ is a measure of the lengthscale in input space over which
+random variables are no longer significantly correlated. In practice, the prior hyperparameters
+are learnt through maximisation of the marginal likelihood $p(X|l)$, as outlined in my
+&lt;a href=&#34;../bayesian&#34;&gt;previous post&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Let us now consider that we have made some noisy observations, $y= { y_i } _{i=1}^m$ at locations
+$X={x_i}_{i=1}^m$.
+We will assume that these observations are our window for gaining insights about the underlying function
+$f$ from which the observations were made. We want to predict the value of the function at an
+additional number of locations, $X^{*} = {x_i}_{i=m+1}^n$.&lt;/p&gt;
+&lt;p&gt;Assuming that observations are corrupted by Gaussian noise with variance $\sigma^2$,
+the joint distribution of the observed values $y$ and the test values $f_{*}$ is
+$$
+\left[\begin{matrix}
+\mathbf{y} \\
+\mathbf{f}_{*}
+\end{matrix}\right] \sim \mathcal{N}\left(\mathbf{0},\left[\begin{matrix}
+k(X, X)+\sigma^{2} I &amp;amp; k(X, X_{*}) \\&lt;br&gt;
+k\left(X_{*}, X\right) &amp;amp; k\left(X_{*}, X_{*}\right)
+\end{matrix}\right]\right).$$&lt;/p&gt;
+&lt;p&gt;Conditioning on the observed values, we obtain the posterior distribution over $f_{*}$:&lt;/p&gt;
+&lt;p&gt;$$
+f_{*} | X, y, X_{*} \sim \mathcal{N}(\bar{f_{*}}, \mathrm{cov} \left(f_{*}\right))
+$$&lt;/p&gt;
+&lt;p&gt;where
+$$
+\bar{f_{*}} = k\left(X_{*}, X\right)\left[k\left(X, X\right)+\sigma^2I \right]^{-1} y
+$$
+and
+$$
+\mathrm{cov}\left(\mathbf{f}_{*}\right) =k\left(X_{*}, X_{*}\right)-k\left(X_{*}, X\right)\left[k(X, X)+\sigma^{2} I\right]^{-1} k\left(X, X_{*}\right).
+$$
+Exact inference in the GP model has computational complexity $\mathcal{O}(m^3)$ due to the need
+to invert the $m \times m$ matrix $k\left(X_{*}, X\right)+\sigma^2I$, which restricts the
+application of exact GPs to small datasets. Approximations have been developed that reduce the
+complexity to $\mathcal{O}(mp^2)$, where $p$ is some number of inducing points $p&amp;lt;m$.
+Along with the computational complexity, inference using GP models is challenging due to the
+need to select or design an appropriate kernel (with corresponding hyperparameters) for the
+task at hand.&lt;/p&gt;
+&lt;h2 id=&#34;neural-processes&#34;&gt;Neural processes&lt;/h2&gt;
+&lt;p&gt;The term &lt;em&gt;neural processes&lt;/em&gt; was introduced to describe a family of models which use neural networks
+to model stochastic processes with complex joint distributions, of which the first was introduced
+just a few years ago with many variants developed
+since.&lt;/p&gt;
+&lt;p&gt;Let us consider that for some system, there is an underlying stochastic process, $\mathcal{P}$,
+from which we may sample a function $f$. Each time we sample a function, we are given access
+to $m$ noisy observations ${x_i, y_i}_{i=1}^m$. Given these observations, we wish to
+predict the values of the function at $n$ additional inputs ${x_i}_{i=m+1}^{m+n}$.
+This corresponds to finding the posterior predictive distribution&lt;br&gt;
+\begin{equation}
+p(y_{m+1:m+n}|x_{1:m+n}, y_{1:m}) = \int p(y_{m+1:m+n}|f, x_{m+1:m+n})p(f|x_{1:m+n}, y_{1:m}) df,
+\end{equation}
+which is obtained by marginalising out $f$. Generally, this integral is intractable,
+which motivates the use of variational inference, which I introduced in a &lt;a href=&#34;../variational_inference&#34;&gt;previous post&lt;/a&gt;.
+A characterising assumption made by neural processes is that all information about $f$ is captured by some
+global latent variable $z$, such that
+\begin{equation}
+p(y_{m+1:m+n}|f, x_{m+1:m+n}) = p_{\theta}(y_{m+1:m+n}|x_{m+1:m+n}, z),
+\end{equation}
+where $\theta$ represents the learnable parameters of the likelihood (in this case, the model parameters).
+We assume conditional independence of the function values, given $z$, such that the joint distribution is given by
+\begin{align}
+p(y_{m+1:m+n}, z|x_{1:m+n}, y_{1:m}) &amp;amp;= p(z|x_{1:m}, y_{1:m}) \prod_{i=m+1}^{n+m} p_{\theta}(y_i|x_i, z).
+\end{align}
+This is related to the posterior predictive distribution $p(y_{m+1:m+n}|x_{1:m+n}, y_{1:m})$ by Bayes&amp;rsquo; theorem
+\begin{align}
+p(y_{m+1:m+n}|x_{1:m+n}, y_{1:m}) &amp;amp;= \frac{p(y_{m+1:m+n}, z|x_{1:m+n}, y_{1:m})}{p(z|x_{1:m+n}, y_{1:m+n})} \\&lt;br&gt;
+&amp;amp;= \frac{p(z|x_{1:m}, y_{1:m}) \prod_{i=m+1}^{m+n} p_{\theta}(y_i|x_i, z)}{p(z|x_{1:m+n}, y_{1:m+n})}.
+\end{align}
+We introduce the variational distribution $q_{\phi}(z|x_{1:m+n}, y_{1:m+n})$ which serves as an
+approximation to the posterior $p(z|x_{1:m+n}, y_{1:m+n})$. Following the framework laid out in a &lt;a href=&#34;../variational_inference&#34;&gt;previous post on
+variational inference&lt;/a&gt;, we find that
+\begin{align}
+\small \log{p(y_{m+1:m+n}|x_{1:m+n}, y_{1:m})} = \mathcal{L}_{\mathrm{ELBO}} + \textrm{KL}[q_{\phi}(z|x_{1:m+n}, y_{1:m+n}) || p(z|x_{1:m+n}, y_{1:m})]
+\end{align}
+where
+\begin{equation}
+\small \mathcal{L}_{\mathrm{ELBO}} = \mathbb{E}_{q_{\phi}(z|x_{1:m+n}, y_{1:m+n})}\left[\log \left(\frac{p(z|x_{1:m}, y_{1:m})}{q_{\phi}(z|x_{1:m+n}, y_{1:m+n})}\right) + \sum_{i=m+1}^{m+n} \log p_{\theta}(y_i|x_i, z) \right]
+\end{equation}
+In practice, the conditional prior $p(z|x_{1:m}, y_{1:m})$ is unknown, so we will approximate it with $q_{\phi}(z|x_{1:m}, y_{1:m})$, such that
+\begin{equation}
+\small \mathcal{L}_{\mathrm{ELBO}} = \mathbb{E}_{q_{\phi}(z|x_{1:m+n}, y_{1:m+n})}\left[\log \left(\frac{q_{\phi}(z|x_{1:m}, y_{1:m})}{q_{\phi}(z|x_{1:m+n}, y_{1:m+n})}\right) + \sum_{i=m+1}^{m+n} \log p_{\theta}(y_i|x_i, z) \right]
+\end{equation}
+The relationship between the ELBO and the marginal likelihood enables us to find an approximation to the model parameters which maximise the marginal likelihood, and to the variational parameters which best approximate the posterior.
+This is achieved by jointly optimising the ELBO with respect to variational and model parameters.
+&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;
+Employing the amortised variational inference framework outlined &lt;a href=&#34;../variational_inference&#34;&gt;here&lt;/a&gt;, $q_{\phi}$ is parameterised by an encoder function $h$,
+which takes as input each observation tuple $(x_i, y_i)$ and outputs an encoding $r_i$, and a permutation invariant aggregation
+function $a$ which aggregates these encodings, usually using a simple mean or sum operation.
+This aggregated encoding, $r$, is the input to a neural network, which outputs the parameters
+of a Gaussian distribution over the latent variable $z$:
+\begin{equation}
+z \sim \underbrace{\mathcal{N}(z| \mu_{\phi}(r), \sigma^2_{\phi}(r))}_{q_{\phi}(z|x_{1:m+n}, y_{1:m+n})}.
+\end{equation}
+The variational parameters $\phi$ are the parameters of these functions. In the Conditional Neural Process variant,
+$\mu_{\phi}$ and $\sigma_{\phi}$ are defined as $\mu_{\phi}(r)=r; \sigma^2_{\phi}(r)=0$, however in general these functions are learned.&lt;/p&gt;
+&lt;p&gt;For real-valued outputs, the likelihood $p_{\theta}(y_i|x_i, z)$ is modelled as
+\begin{equation}
+p_{\theta}(y_i|x_i, z) = \mathcal{N}(z|\mu_{\theta}(x_i, z), \sigma_{\theta}^2(x_i, z)).
+\end{equation}
+Here, ${\mu_y, \sigma_y}$ are the outputs of a decoder function with parameters $\theta$ which takes as input the
+concatenation of $x_i$ and $z$. &lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;To reiterate, the set of model parameters (which corresponds to the parameters of the decoder function) are learnt concurrently with the set of variational parameters (which corresponds to the parameters of the encoder function), through maximisation of $\mathcal{L}_{ELBO}$. At test time, inference using the NP requires a single forward pass through the model, with an associated computational cost of $\mathcal{O}(n+m)$. For large datasets, this represents a great reduction in computational cost compared to inference using an exact GP. It should be noted that this does not account for the time taken to train the NP which is often significant.&lt;/p&gt;
+&lt;h3 id=&#34;making-predictions&#34;&gt;Making predictions&lt;/h3&gt;
+&lt;p&gt;The predictive distribution is given by
+\begin{equation}
+p(y_{m+1}|x_{1:m+1}, y_{1:m}) = \int p(y_{m+1:m+n}|x_{m+1}, z)p(z|x_{1:m}, y_{1:m}) dz.
+\end{equation}
+We approximate this using the approximate posterior in place of the true posterior
+\begin{equation}
+p(y_{m+1}|x_{1:m+1}, y_{1:m}) \approx \int p(y_{m+1}|x_{m+1}, z)q_{\phi^*}(z|x_{1:m}, y_{1:m}) dz
+\end{equation}
+This still amounts to propagating a Gaussian distribution through a non-linear transformation. Instead, we use a Monte Carlo estimate as
+\begin{equation}
+p(y_{m+1}|x_{1:m+1}, y_{1:m}) \approx \frac{1}{T}\sum_{t=1}^{T} p(y_{m+1}|x_{m+1}, z^{(t)}); \quad z^{(t)} \sim q_{\phi^*}(z|x_{1:m}, y_{1:m}),
+\end{equation}
+where $T$ is the number of samples.&lt;/p&gt;
+&lt;h2 id=&#34;example-1d-regression&#34;&gt;Example: 1D regression&lt;/h2&gt;
+&lt;p&gt;To demonstrate how training of these models occurs in practice and to study the
+relative performance of each model, I consider a one-dimensional regression task.
+Here, the data comprises a set of 1000 datasets, each of which contains between 5 and
+100 tuples $(x, y)$ and is a randomly generated sample from a GP prior with mean and
+covariance functions given by&lt;/p&gt;
+&lt;p&gt;\begin{equation}
+\small m(x) = 0
+\end{equation}
+\begin{equation}
+\small k(x, x&amp;rsquo;) = \sigma_1^2\left(1 + \frac{\sqrt{3}r}{l_1}\right)\exp{\left(-\frac{\sqrt{3}r}{l_1}\right)} + \sigma_2^2\left(1 + \frac{\sqrt{5}r}{l_2} + \frac{5r^2}{3l_2^2}\right)\exp{\left(-\frac{\sqrt{5}r}{l_2}\right)},
+\end{equation}
+where $r=|x - x&#39;|$, $\sigma_1^2 = 2$, $l_1 = 1$, $\sigma_2^2 = 1$ and $l_2 = 2$.&lt;/p&gt;
+&lt;p&gt;I compare the performance of the Gaussian process with the squared exponential kernel
+(with learnable hyperparameters), the original Neural Process (NP), the Conditional Neural Process (CNP)
+and the Attentive NP (ANP). My Python implementation of these models can be found
+&lt;a href=&#34;https://github.com/PenelopeJones/neural_processes&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;predictions.png&#34; alt=&#34;&#34;&gt;
+&lt;em&gt;1D regression task predictions for two different datasets,
+the first (a-d) having $n \gg m$ and the second
+(e-h) having $n \ll m$. For both cases,
+from left to right, predictions are made by the GP
+(squared exponential kernel),
+CNP, NP, ANP respectively. The GP produces a good fit but is overly
+smooth, and the NP and CNP both suffer from underfitting which the
+ANP resolves by incorporating attention. Both the NP and the ANP are
+less smooth than the CNP due to the need to take a finite
+number of samples of $z$ and $y$ to calculate the mean and variance
+of the output.&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&#34;next-time&#34;&gt;Next time&amp;hellip;&lt;/h2&gt;
+&lt;hr&gt;
+&lt;p&gt;In this post I gave an overview of how we can learn to model stochastic processes using
+probabilistic machine learning models, and specifically through learning the
+hyperparameters of a Gaussian process (by maximising the marginal likelihood), or through
+optimisation of the parameters of a neural process. This is one of a number of ways that we
+can incorporate uncertainty in a principled manner.&lt;/p&gt;
+&lt;p&gt;In my next post I plan to delve into another topic that fascinates me, namely reinforcement learning.&lt;/p&gt;
+&lt;p&gt;Thanks for reading! Questions and feedback are always much appreciated -
+please don&amp;rsquo;t hesitate to get in touch.&lt;/p&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Note that this is not the conventional notation for a stochastic process, which usually has
+the index parameter labelled $t$, for time, with corresponding random variable $X_t$.
+This is because of the usual interpretation of a stochastic process as describing the evolution
+of a randomly evolving system over time. Here we breach convention to generalise the index parameter
+to an arbitrary number of dimensions. &lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;A fully Bayesian approach would specify a prior distribution over model parameters and then
+compute the corresponding posterior, which is then integrated over when computing posterior predictive distributions. &lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;The decoder is trying to produce $f(x_i)$. To do so, it needs to have knowledge both of $f$, and the input location $x_i$.
+Assuming that $z$ is an adequate summary of $f$, we anticipate that for a flexible enough likelihood,
+a forward pass through the decoder will be able to reproduce $f(x_i)$ from $z$ and $x_i$. &lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+</description>
+    </item>
     
     <item>
       <title>An Introduction to Variational Inference</title>

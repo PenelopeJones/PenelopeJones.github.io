@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Uncertainty quantification on Penelope Jones</title>
-    <link>https://penelopejones.github.io/tags/uncertainty-quantification/</link>
-    <description>Recent content in Uncertainty quantification on Penelope Jones</description>
+    <title>Stochastic processes on Penelope Jones</title>
+    <link>https://penelopejones.github.io/tags/stochastic-processes/</link>
+    <description>Recent content in Stochastic processes on Penelope Jones</description>
     <generator>Source Themes academia (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>Copyright &amp;copy; {year}</copyright>
     <lastBuildDate>Mon, 16 Nov 2020 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="https://penelopejones.github.io/tags/uncertainty-quantification/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="https://penelopejones.github.io/tags/stochastic-processes/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -229,183 +229,6 @@ compute the corresponding posterior, which is then integrated over when computin
 &lt;p&gt;The decoder is trying to produce $f(x_i)$. To do so, it needs to have knowledge both of $f$, and the input location $x_i$.
 Assuming that $z$ is an adequate summary of $f$, we anticipate that for a flexible enough likelihood,
 a forward pass through the decoder will be able to reproduce $f(x_i)$ from $z$ and $x_i$. &lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/section&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Bayesian Inference</title>
-      <link>https://penelopejones.github.io/post/bayesian/</link>
-      <pubDate>Mon, 12 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://penelopejones.github.io/post/bayesian/</guid>
-      <description>&lt;p&gt;The rise of &lt;em&gt;big data&lt;/em&gt; has been ubiquitous in almost all scientific fields as well as in broader society;
-the five most valuable companies in the United States are fundamentally data-driven. &lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; It is hardly surprising then,
-that media outlets and industrial experts alike have proclaimed that ‘data is the new oil’ in reference to
-the mass commoditisation of data globally (&lt;a href=&#34;http://ibisworldwide.com/wp-content/uploads/2015/10/Clive-Humby-RS.pdf&#34;&gt;Humby, 2015&lt;/a&gt;, &lt;a href=&#34;https://www.economist.com/leaders/2017/05/06/the-worlds-most-valuable-resource-is-no-longer-oil-but-data&#34;&gt;The Economist, 2017&lt;/a&gt;, &lt;a href=&#34;https://ieeexplore.ieee.org/document/6863125&#34;&gt;Yi et al., 2014&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;The real value in big data has arisen not only from the data itself, but from the concinnity of this
-data collection with ever-improving computing power and significant advancements in the tools available
-for making sense of the data. Many of these tools have been branded by the umbrella term machine learning.
-At the core of these methodologies is the inference of useful insights from our observations, which can be used
-to make predictions about unobserved variables, to build models of complex systems and to guide decision-making
-processes. In science, machine learning is routinely used in a plethora of applications, from designing novel
-molecules for use as medicinal drugs (&lt;a href=&#34;https://www.nature.com/articles/s41557-020-0496-2&#34;&gt;Chodera et al., 2020&lt;/a&gt;), to aiding conservation of coral reefs (&lt;a href=&#34;https://www.nature.com/articles/s42256-020-0192-3&#34;&gt;Nunes et al., 2020&lt;/a&gt;), and, topically, for
-forecasting the spread of infectious diseases such as that of the novel coronavirus COVID-19 (&lt;a href=&#34;https://pubmed.ncbi.nlm.nih.gov/30060525/&#34;&gt;Chae et al., 2018&lt;/a&gt;,
-&lt;a href=&#34;https://www.pnas.org/content/117/29/16732&#34;&gt;Bertozzi et al., 2020&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;A burgeoning focus of research within machine learning is on the incorporation of probabilistic methodologies
-to enable the quantification of uncertainty. This is desirable in many applications of machine learning in science
-where it is vital that we ‘know what we do not know’. At the heart of most probabilistic models is the
-Bayesian framework which, as we shall see, provides a principled mechanism by which one’s
-degree of belief in any event or model can be iteratively updated,
-and which enables the quantification of uncertainty in every prediction that one makes.&lt;/p&gt;
-&lt;h2 id=&#34;the-omnipresence-of-uncertainty-in-science&#34;&gt;The omnipresence of uncertainty in science&lt;/h2&gt;
-&lt;p&gt;A scientist recognises and appreciates the success of prevailing theories and models in explaining her observations, but
-is all the while cognisant that no theory should be above scrutiny. The course of history is testament to this world view;
-countless theories once considered indubitable truths have been revealed to be flawed. A corollary of this is that no model should ever be considered certain.
-Instead, one should assess the extent to which they believe that a model is &lt;em&gt;true&lt;/em&gt; based on the information available to them.&lt;/p&gt;
-&lt;p&gt;It is on this premise that the Bayesian view of probability naturally arises. Here, anything about which one is uncertain
-is assigned a probability between zero and one, which quantifies one&amp;rsquo;s &lt;em&gt;degree of belief&lt;/em&gt; that the unobserved quantity
-will take a specific value. A value close to zero implies a belief that it is unlikely an event will occur. Conversely a
-probability close to one implies a belief that an event is likely to occur.&lt;/p&gt;
-&lt;p&gt;No aspect of the scientific method is free of uncertainty. When we make a hypothesis using a model, we consciously or
-subconsciously assign a prior belief to that hypothesis based on information acquired from previous observations. When
-this belief is sufficiently great to warrant our time and efforts, we may test the hypothesis by conducting an experiment.
-Inevitably, even our experimental observations are uncertain - our measurements are subject to noise in part due to the
-finite precision of our measuring devices. &lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; Finally, we use these observations to update our degree of belief in the
-model, based on its ability to explain the data.&lt;/p&gt;
-&lt;h2 id=&#34;the-bayesian-approach-to-inference&#34;&gt;The Bayesian approach to inference&lt;/h2&gt;
-&lt;p&gt;The Bayesian approach to inference provides a principled framework for the quantification of uncertainty at every level.
-Using a Bayesian framework, one can iteratively update their beliefs with every new observation.
-This continual cycle of making observations and then updating our beliefs based on those observations is conceptually
-satisfying, as it is in accordance with our own life experiences.&lt;/p&gt;
-&lt;p&gt;The Bayesian paradigm is to update our degree of belief in a model $M$
-in light of new data $X$ using Bayes’ theorem,
-$$p(M|X) = \frac{p(X|M)p(M)}{p(X)}.$$
-Here $p(M)$ is the &lt;em&gt;prior&lt;/em&gt;, which quantifies our degree of belief in
-$M$ before observing $X$, and $p(M|X)$ is the &lt;em&gt;posterior&lt;/em&gt;, which
-quantifies our degree of belief in $M$ after observing $X$. The
-posterior is related to the prior through the &lt;em&gt;likelihood&lt;/em&gt; $p(X|M)$,
-which measures how well $M$ can explain $X$, and the marginal likelihood
-$p(X)$, which here serves as a normalising constant. When new
-observations are made, the previous posterior serves as the new prior,
-embodying the iterative nature of learning.&lt;/p&gt;
-&lt;p&gt;There are multiple modelling questions that we may wish to answer, all
-of which involve performing inference at different levels of detail. For
-example, we may want to determine whether data is best explained by a
-polynomial function, or by a neural network. Alternatively, we may be
-happy to assume a polynomial function can explain the data, but seek to
-infer the most probable order of that polynomial function. Finally, at
-the lowest level, we may be happy to fix the order of the polynomial,
-but wish to infer its coefficients. We can answer all of these questions
-using Bayesian inference.&lt;/p&gt;
-&lt;p&gt;Let $\mathcal{M}$ denote a family of models. Each member of the family, $M\in\mathcal{M}$, is
-defined by a set of hyperparameters and consists of model parameters
-$θ_M$. Table 1
-provides some common examples of such models and their associated
-hyperparameters and parameters.&lt;/p&gt;
-&lt;p&gt;Table 1: &lt;em&gt;Examples of models and their hyperparameters and parameters.&lt;/em&gt;&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Model family $\mathcal{M}$&lt;/th&gt;
-&lt;th&gt;Defining hyperparameters of model $M\in \mathcal{M}$&lt;/th&gt;
-&lt;th&gt;Model parameters $\theta_M$&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Polynomial function&lt;/td&gt;
-&lt;td&gt;The order, $n$, of the polynomial&lt;/td&gt;
-&lt;td&gt;Coefficients $C_n={c_i}_{i=0}^n$&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Gaussian mixture model&lt;/td&gt;
-&lt;td&gt;Number of components&lt;/td&gt;
-&lt;td&gt;Means, variances, mixing coefficients&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Neural network&lt;/td&gt;
-&lt;td&gt;Number of layers, size of layers, choice of activation function&lt;/td&gt;
-&lt;td&gt;Neural network parameters&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;The probability of observing a particular dataset is found by
-integrating out all other variables from the joint distribution
-$$\begin{aligned}
-p(X) =&amp;amp; \sum_{\mathcal{M}} \sum_{M} \int p(X, \theta_M, M, \mathcal{M}) d\theta_M \nonumber \\&lt;br&gt;
-=&amp;amp; \sum_{\mathcal{M}} p(\mathcal{M}) \sum_{M}p(M|\mathcal{M})\int  p(\theta_M|M, \mathcal{M}) p(X|\theta_M, M, \mathcal{M}) d\theta_M.\end{aligned}$$&lt;/p&gt;
-&lt;p&gt;This equation is rather daunting. It is more intuitive to separate the
-procedure into three levels. The level(s) of inference that shall be
-considered will depend on what the statistician hopes to achieve, and
-the extent to which she is willing to restrict the breadth of models
-considered.&lt;/p&gt;
-&lt;p&gt;At the first level of inference, the model is specified and fixed. The
-goal is to determine the posterior $p(\theta_M|X, M, \mathcal{M})$
-over the model’s parameters $\theta_M$, given some observed data
-$X$. We must specify the prior $p(\theta_M|M, \mathcal{M})$ and the
-likelihood $p(X|\theta_M, M, \mathcal{M})$. The posterior is
-$$p(\theta_M|X, M, \mathcal{M}) = \frac{p(X|\theta_M, M, \mathcal{M})p(\theta_M|M, \mathcal{M})}{p(X|M, \mathcal{M})}.$$
-The normalising constant $p(X|M, \mathcal{M})$
-is the &lt;em&gt;marginal likelihood&lt;/em&gt; of the model, and is computed by
-integrating over $\theta_M$
-$$p(X|M, \mathcal{M}) = \int p(\theta_M| M, \mathcal{M}) p(X|\theta_M, M, \mathcal{M})  d\theta_M.$$&lt;/p&gt;
-&lt;p&gt;This quantity is central to the second level of inference, in which the
-model family remains fixed, but now we seek to compare the relative
-plausibility of two models in the same model family. We can compute the
-posterior probability of model $M$ as
-$$ p(M|X, \mathcal{M}) = \frac{p(X|M, \mathcal{M})p(M| \mathcal{M})}{p(X|\mathcal{M})},$$&lt;/p&gt;
-&lt;p&gt;where $p(X|\mathcal{M})$ is the marginal likelihood of the model &lt;em&gt;family&lt;/em&gt;:
-$$p(X|\mathcal{M}) = \sum_{M \in \mathcal{M}} P(X|M, \mathcal{M})p(M|\mathcal{M}).$$&lt;/p&gt;
-&lt;p&gt;Assuming a uniform prior over models such that $p(M|\mathcal{M}) \propto 1$, the model
-that best explains the data will be that which maximises
-$p(X|M, \mathcal{M})$. The marginal likelihood penalises overly complex models
-and has an implicit Occam’s razor property: the optimal model will be
-the simplest model that can explain the data adequately (&lt;a href=&#34;http://www.inference.org.uk/mackay/thesis.pdf&#34;&gt;MacKay, 1991&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;At the highest level of inference, we could compare the ability of two
-different model families to explain $X$. This can be achieved by
-computing the posterior distribution of the model family
-$$p(\mathcal{M}|X) = \frac{p(X|\mathcal{M})p(\mathcal{M})}{p(X)}.$$
-The normalising constant $p(X)$ is independent of $\mathcal{M}$, and typically the
-prior over model families $p(\mathcal{M})$ is assumed uniform. &lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
-&lt;h3 id=&#34;predicting-the-values-of-missing-data&#34;&gt;Predicting the values of missing data&lt;/h3&gt;
-&lt;p&gt;Given the observed dataset $X$, we may wish to predict the values of
-some unobserved data, $X^{\star}$. In parametric models,
-$X^{\star}$ is assumed conditionally independent of $X$ given the
-model parameters, such that the distribution
-$p(X^{\star}|X, M)$ is
-$$p(X^{\star}|X, M) = \int p(X^{\star}|\theta_M, M) p(\theta_M|X, M) d\theta_M.$$&lt;/p&gt;
-&lt;h2 id=&#34;next-time&#34;&gt;Next time&amp;hellip;&lt;/h2&gt;
-&lt;p&gt;In this post, I outlined the importance of uncertainty quantification in science, and showed how
-Bayesian inference can be used to update our degree of belief in measurements and models in light of new observations.&lt;/p&gt;
-&lt;p&gt;Next time, I will be covering the basics of variational inference, an important family of techniques for approximating the intractable integrals
-that are ubiquitous in Bayesian inference.&lt;/p&gt;
-&lt;p&gt;Thanks for reading!&lt;/p&gt;
-&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
-&lt;p&gt;(&lt;a href=&#34;https://www.forbes.com/global2000/#6c50c161335d&#34;&gt;Forbes, 2020&lt;/a&gt;) Global 2000 - The World’s Largest Public Companies 2020, August 2020.&lt;/p&gt;
-&lt;p&gt;(&lt;a href=&#34;http://ibisworldwide.com/wp-content/uploads/2015/10/Clive-Humby-RS.pdf&#34;&gt;Humby, 2015&lt;/a&gt;) Clive Humby. Data is the new oil, 2015.&lt;/p&gt;
-&lt;p&gt;(&lt;a href=&#34;https://www.economist.com/leaders/2017/05/06/the-worlds-most-valuable-resource-is-no-longer-oil-but-data&#34;&gt;The Economist, 2017&lt;/a&gt;) The world’s most valuable resource is no longer oil, but data. The Economist, May 2017.&lt;/p&gt;
-&lt;p&gt;(&lt;a href=&#34;https://ieeexplore.ieee.org/document/6863125&#34;&gt;Yi et al., 2014&lt;/a&gt;) Xiaomeng Yi, Fangming Liu, Jiangchuan Liu, and Hai Jin. Building a network highway for big data: architecture and challenges. IEEE Network, 28(4):5–13, July 2014. Conference Name: IEEE Network.&lt;/p&gt;
-&lt;p&gt;(&lt;a href=&#34;https://www.nature.com/articles/s41557-020-0496-2&#34;&gt;Chodera et al., 2020&lt;/a&gt;) John Chodera, Alpha A. Lee, Nir London, and Frank von Delft. Crowdsourcing drug discovery for pandemics. Nature Chemistry, 12(7):581–581, July 2020. Number: 7 Publisher: Nature Publishing Group.&lt;/p&gt;
-&lt;p&gt;(&lt;a href=&#34;https://www.nature.com/articles/s42256-020-0192-3&#34;&gt;Nunes et al., 2020&lt;/a&gt;) José Anchieta C. C. Nunes, Igor C. S. Cruz, André Nunes, and Hudson T. Pinheiro. Speeding up coral reef conservation with AI-aided automated image analysis. Nature Machine Intelligence, 2(6):292–292, June 2020. Number: 6 Publisher: Nature Publishing Group.&lt;/p&gt;
-&lt;p&gt;(&lt;a href=&#34;https://pubmed.ncbi.nlm.nih.gov/30060525/&#34;&gt;Chae et al., 2018&lt;/a&gt;) Sangwon Chae, Sungjun Kwon, and Donghyun Lee. Predicting Infectious Disease Using Deep Learning and Big Data. International Journal of Environmental Research and Public Health, 15(8), August 2018.&lt;/p&gt;
-&lt;p&gt;(&lt;a href=&#34;https://www.pnas.org/content/117/29/16732&#34;&gt;Bertozzi et al., 2020&lt;/a&gt;) Andrea L. Bertozzi, Elisa Franco, George Mohler, Martin B. Short, and Daniel Sledge. The challenges of modeling and forecasting the spread of COVID-19. Proceedings of the National Academy of Sciences, 117(29):16732–16738, July 2020. Publisher: National Academy of Sciences Section: Physical Sciences.&lt;/p&gt;
-&lt;p&gt;(&lt;a href=&#34;http://www.inference.org.uk/mackay/thesis.pdf&#34;&gt;MacKay, 1991&lt;/a&gt;) David J.C. MacKay. Bayesian Methods for Adaptive Models. PhD Thesis, December 1991.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
-&lt;hr&gt;
-&lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;As of August 2020, the five most valuable publicly traded US companies by market capitalisation are Alphabet, Amazon, Apple, Facebook and Microsoft (&lt;a href=&#34;https://www.forbes.com/global2000/#6c50c161335d&#34;&gt;Forbes, 2020&lt;/a&gt;). &lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;The uncertainty associated with observation noise is termed &lt;em&gt;aleatoric&lt;/em&gt;, as against the &lt;em&gt;epistemic&lt;/em&gt; uncertainty that arises due to a lack of observations. &lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;This is because there is usually no reason for us to assign a prior
-degree of belief to a particular model family. Thus we assume
-&lt;em&gt;p&lt;/em&gt;(ℳ) ∝ 1. &lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/section&gt;
