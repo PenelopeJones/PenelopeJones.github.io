@@ -14,10 +14,10 @@
     
     <item>
       <title>ML and Stochastic Processes</title>
-      <link>https://penelopejones.github.io/post/neural_processes/</link>
+      <link>https://penelopejones.github.io/post/stochastic_processes/</link>
       <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://penelopejones.github.io/post/neural_processes/</guid>
+      <guid>https://penelopejones.github.io/post/stochastic_processes/</guid>
       <description>&lt;p&gt;An assortment of physical systems exist that can be considered stochastic
 processes. For example, diffusion and heat transfer can be modelled as
 Brownian processes, and the number of decays from a radioactive sample
