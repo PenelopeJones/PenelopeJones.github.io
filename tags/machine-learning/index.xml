@@ -37,9 +37,9 @@ the Gaussian process, a widely used stochastic process that has found success in
 a variety of domains.&lt;/p&gt;
 &lt;h2 id=&#34;gaussian-processes&#34;&gt;Gaussian processes&lt;/h2&gt;
 &lt;p&gt;A Gaussian process (GP) is a stochastic process for which the joint distribution
-of any finite subset of the set of random variables is Gaussian [66].
+of any finite subset of the set of random variables is Gaussian.
 GPs are used extensively in a range of applications, including in Bayesian
-optimisation [67], reinforcement learning [68] and property prediction [69].&lt;/p&gt;
+optimisation, reinforcement learning and property prediction.&lt;/p&gt;
 &lt;p&gt;A GP is wholly specified by a mean function $m(x)$ and covariance
 function $k(x, x&amp;rsquo;)$, where for $\mathit{f} \sim \mathcal{P}$:
 $$\begin{aligned}
